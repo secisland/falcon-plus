@@ -55,17 +55,26 @@ type CollectorConfig struct {
 	MountPoint  []string `json:"mountPoint"`
 }
 
+type ServerInstanceConfig struct {
+	Name string `json:"name"`
+	Host string `json:"host"`
+	Port  string `json:"port"`
+	User string `json:"user"`
+	Passwd	string `json:"passwd"`
+}
+
 type GlobalConfig struct {
-	Debug         bool              `json:"debug"`
-	Hostname      string            `json:"hostname"`
-	IP            string            `json:"ip"`
-	Plugin        *PluginConfig     `json:"plugin"`
-	Heartbeat     *HeartbeatConfig  `json:"heartbeat"`
-	Transfer      *TransferConfig   `json:"transfer"`
-	Http          *HttpConfig       `json:"http"`
-	Collector     *CollectorConfig  `json:"collector"`
-	DefaultTags   map[string]string `json:"default_tags"`
-	IgnoreMetrics map[string]bool   `json:"ignore"`
+	Debug         bool                     `json:"debug"`
+	Hostname      string                   `json:"hostname"`
+	IP            string                   `json:"ip"`
+	Plugin        *PluginConfig            `json:"plugin"`
+	Heartbeat     *HeartbeatConfig         `json:"heartbeat"`
+	Transfer      *TransferConfig          `json:"transfer"`
+	Http          *HttpConfig              `json:"http"`
+	Collector     *CollectorConfig         `json:"collector"`
+	DefaultTags   map[string]string        `json:"default_tags"`
+	IgnoreMetrics map[string]bool          `json:"ignore"`
+	Modules	      []*ServerInstanceConfig  `json:"modules"`
 }
 
 var (

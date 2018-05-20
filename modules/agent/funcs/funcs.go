@@ -17,6 +17,7 @@ package funcs
 import (
 	"github.com/open-falcon/falcon-plus/common/model"
 	"github.com/open-falcon/falcon-plus/modules/agent/g"
+	"log"
 )
 
 type FuncsAndInterval struct {
@@ -42,6 +43,7 @@ func BuildMappers() {
 				NetstatMetrics,
 				ProcMetrics,
 				UdpMetrics,
+				ModuleMetrics,
 			},
 			Interval: interval,
 		},
@@ -77,4 +79,27 @@ func BuildMappers() {
 			Interval: interval,
 		},
 	}
+}
+
+func ModuleMetrics() (L []*model.MetricValue) {
+        modules := g.Config().Modules
+        sz := len(modules)
+	log.Printf("=> <Total=%d> Modules Config\n", sz)
+        if sz == 0 {
+                return
+        }
+
+        for _,module := range modules {
+                if module.Name == "redis" {
+                        L = append(L, RedisStatInfo(module.Host,module.Port,module.Passwd)...)
+                }
+                //else if tag == "mongodb" {
+                //      MongodbStatInfo()
+                //} else if tag == "mysql" {
+                //      MysqlStatInfo()
+                //}
+        }
+	log.Printf("=> <Total=%d> ModulesMetrics\n", len(L))
+
+        return
 }

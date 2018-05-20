@@ -8,6 +8,20 @@
         "git": "https://github.com/open-falcon/plugin.git",
         "logs": "./logs"
     },
+    "modules" :[
+        {
+            "name":"redis",
+            "host":"127.0.0.1",
+            "port":"6379",
+            "passwd":"YOUR PASSWORD"
+        },
+        {
+            "name":"redis",
+            "host":"127.0.0.1",
+            "port":"6380",
+            "passwd":"YOUR PASSWORD"
+        }
+    ],
     "heartbeat": {
         "enabled": true,
         "addr": "127.0.0.1:6030",
