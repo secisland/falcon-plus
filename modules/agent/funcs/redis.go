@@ -56,11 +56,9 @@ func RedisStatInfo(host string,port string,passwd string) (L []*model.MetricValu
 		rkey := strings.Split(item, ":")
 		if t, ok := monitorKeys[rkey[0]]; ok {
 			if rkey[0] == "keyspace_hits" {
-				log.Println("############",rkey[1])
 				keyspace_hits,_ = strconv.ParseFloat(rkey[1],64)
 				L = append(L, CounterValue("redis."+rkey[0]+"."+port, rkey[1]))
 			} else if rkey[0] == "keyspace_misses" {
-				log.Println("############",rkey[1])
 				keyspace_misses,_ = strconv.ParseFloat(rkey[1],64)
 				L = append(L, CounterValue("redis."+rkey[0]+"."+port, rkey[1]))
 			} else if rkey[0] == "role" {
