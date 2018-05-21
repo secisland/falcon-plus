@@ -15,10 +15,13 @@ func NewRedis(arg []string) redis.Conn {
 		log.Println(err)
 		return nil
 	}
-	//密码授权
-	_, err = c.Do("AUTH", arg[1])
-	if err != nil {
-		return nil
+
+        if len(arg[1])>0 {
+		//密码授权
+		_, err = c.Do("AUTH", arg[1])
+		if err != nil {
+			return nil
+		}
 	}
 	return c
 }
