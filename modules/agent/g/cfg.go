@@ -61,6 +61,7 @@ type ServerInstanceConfig struct {
 	Port  string `json:"port"`
 	User string `json:"user"`
 	Passwd	string `json:"passwd"`
+	DbName string `json:"dbName"`
 }
 
 type GlobalConfig struct {
