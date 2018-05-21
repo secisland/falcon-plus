@@ -82,5 +82,22 @@ func RedisStatInfo(host string,port string,passwd string) (L []*model.MetricValu
 		L = append(L, GaugeValue("redis.keyspace_hit_ratio."+port, "0.00"))
 	}
 
+	L = append(L,RedisCmdStatInfo(conn,port)...)
+	
+	return
+}
+
+func RedisCmdStatInfo(conn redis.Conn,port string) (L []*model.MetricValue) {
+	r, _ := redis.String(conn.Do("info", "Commandstats"))
+	r = strings.Replace(string(r),"\r\n", "\n", -1)
+	for _, item := range strings.Split(r, "\n") {
+		rkey := strings.Split(item, ":calls=")
+		if len(rkey)>1 {
+			rvalue := strings.Split(rkey[1],",")
+			if len(rvalue)>1{
+				L = append(L, CounterValue("redis."+rkey[0]+"."+port, rvalue[0]))
+			}
+		}
+	}
 	return
 }
