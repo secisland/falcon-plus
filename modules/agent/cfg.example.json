@@ -14,12 +14,26 @@
             "host":"127.0.0.1",
             "port":"6379",
             "passwd":"YOUR PASSWORD"
-        },
-        {
+        },{
             "name":"redis",
             "host":"127.0.0.1",
             "port":"6380",
             "passwd":"YOUR PASSWORD"
+        },{
+            "name":"mysql",
+            "host":"127.0.0.1",
+            "port":"3306",
+            "user":"USERNAME",
+            "passwd":"YOUR PASSWORD",
+            "dbName":"test"
+
+        },{
+            "name":"mongodb",
+            "host":"127.0.0.1",
+            "port":"27017",
+            "user":"USERNAME",
+            "passwd":"YOUR PASSWORD"
+            "dbName":"admin"
         }
     ],
     "heartbeat": {

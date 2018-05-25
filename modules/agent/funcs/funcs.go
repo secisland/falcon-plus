@@ -91,10 +91,12 @@ func ModuleMetrics() (L []*model.MetricValue) {
 
         for _,module := range modules {
                 if module.Name == "redis" {
-                        L = append(L, RedisStatInfo(module.Host,module.Port,module.Passwd)...)
+                        L = append(L, RedisStatInfo(module.Host, module.Port, module.Passwd)...)
                 } else if module.Name == "mysql" {
                         L = append(L, MySQLStatInfo(module.Host, module.Port, module.User, module.Passwd, module.DbName)...)
-                }
+                } else if module.Name == "mongodb" {
+                        L = append(L, MongoStatInfo(module.Host, module.Port, module.User, module.Passwd, module.DbName)...)
+		}
         }
 	log.Printf("=> <Total=%d> ModulesMetrics\n", len(L))
 

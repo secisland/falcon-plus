@@ -36,6 +36,7 @@ func MySQLStatInfo(host string, port string, user string, passwd string, dbName 
 	}
 	L = append(L,MySQLStatusStatInfo(db,port)...)
 	L = append(L,MySQLEngineStatInfo(db,port)...)
+	L = append(L,MySQLSlaveInfo(db,port)...)
 	return
 }
 
@@ -189,4 +190,82 @@ func MySQLEngineStatInfo(db *sql.DB, port string)(L []*model.MetricValue){
 		return
 	}
 	return
+}
+
+func MySQLSlaveInfo(db *sql.DB, port string)(L []*model.MetricValue){
+	rows, err := db.Query("SHOW SLAVE STATUS")
+	if err != nil {
+		log.Println("MySQL slave status query error,port=",port,err)
+		return
+	}
+	defer rows.Close()
+
+	status, err := ScanMap(rows)
+
+	if err != nil {
+		log.Println("MySQL slave status parse error,port=",port,err)
+		return
+	}
+	if v,ok := status["Slave_IO_Running"];ok {
+		if v.Valid && v.String == "YES"{
+			L = append(L, CounterValue("mysql.Slave_IO_Running."+port, "0.00"))
+		} else {
+			L = append(L, CounterValue("mysql.Slave_IO_Running."+port, "1.00"))
+		}
+		//log.Println("Slave_IO_Running =>",v.String)
+	}
+	if v,ok := status["Slave_SQL_Running"];ok {
+		if v.Valid && v.String == "YES"{
+			L = append(L, CounterValue("mysql.Slave_SQL_Running."+port, "0.00"))
+		} else {
+			L = append(L, CounterValue("mysql.Slave_SQL_Running."+port, "1.00"))
+		}
+		//log.Println("Slave_SQL_Running =>",v.String)
+	}
+	if v,ok := status["Seconds_Behind_Master"];ok {
+		if v.Valid {
+			L = append(L, CounterValue("mysql.Seconds_Behind_Master."+port,v.String))
+		} else {
+			L = append(L, CounterValue("mysql.Seconds_Behind_Master."+port,"-1.00"))
+		}
+		//log.Println("Seconds_Behind_Master =>",v.String)
+	}
+	//log.Println("status =>",status)
+	return
+}
+
+func ScanMap(rows *sql.Rows) (map[string]sql.NullString, error) {
+	columns, err := rows.Columns()
+	if err != nil {
+		return nil, err
+	}
+
+	if !rows.Next() {
+		err = rows.Err()
+		if err != nil {
+			return nil, err
+		} else {
+			return nil, nil
+		}
+	}
+
+	values := make([]interface{}, len(columns))
+
+	for index := range values {
+		values[index] = new(sql.NullString)
+	}
+
+	err = rows.Scan(values...)
+
+	if err != nil {
+		return nil, err
+	}
+
+	result := make(map[string]sql.NullString)
+
+	for index, columnName := range columns {
+		result[columnName] = *values[index].(*sql.NullString)
+	}
+
+	return result, nil
 }
