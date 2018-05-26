@@ -36,8 +36,8 @@ Just look at https://github.com/open-falcon/ops-updater
 
 ## Metrics description
 
-# MySQL监控metrics如下：
-
+### MySQL监控metrics如下：
+```
 "mysql.Com_select.{{PORT}}":                          "COUNTER",
 "mysql.Qcache_hits.{{PORT}}":                         "COUNTER",
 "mysql.Com_insert.{{PORT}}":                          "COUNTER",
@@ -69,15 +69,16 @@ Just look at https://github.com/open-falcon/ops-updater
 "mysql.Slow_queries.{{PORT}}":                        "COUNTER",
 "mysql.Binlog_cache_disk_use.{{PORT}}":               "COUNTER",
 "mysql.Undo_Log_Length.{{PORT}}":                     "GAUGE",
-    
+``` 
 MySQL从库复制状态的监控项(主库不会产生下列metric):
+```
 "mysql.Slave_IO_Running.{{PORT}}":                    "GAUGE",
 "mysql.Slave_SQL_Running.{{PORT}}":                   "GAUGE",
 "mysql.Seconds_Behind_Master.{{PORT}}":               "GAUGE",
+```
 
-
-# Redis监控metrics如下：
-
+### Redis监控metrics如下：
+```
 "redis.connected_clients.{{PORT}}":             "GAUGE",
 "redis.blocked_clients.{{PORT}}":               "GAUGE",
 "redis.used_memory.{{PORT}}":                   "GAUGE",
@@ -96,8 +97,9 @@ MySQL从库复制状态的监控项(主库不会产生下列metric):
 "redis.keys_num.{{PORT}}":                      "GAUGE",
 "redis.role.{{PORT}}":                          "COUNTER",
 "redis.keyspace_hit_ratio.{{PORT}}":            "GAUGE"
-
+```
 RedisCmdStatInfo如下(redis-cli> info Commandstats 命令所有结果)：
+```
 "redis.cmdstat_auth.{{PORT}}":              "COUNTER",    
 "redis.cmdstat_config.{{PORT}}":            "COUNTER",
 "redis.cmdstat_expire.{{PORT}}":            "COUNTER",
@@ -116,9 +118,9 @@ RedisCmdStatInfo如下(redis-cli> info Commandstats 命令所有结果)：
 "redis.cmdstat_zremrangebyrank.{{PORT}}":   "COUNTER",
 "redis.cmdstat_zrevrange.{{PORT}}":         "COUNTER",
 "redis.cmdstat_zrevrangebyscore.{{PORT}}":  "COUNTER",
-
-# MongoDB监控metrics如下：
-
+```
+### MongoDB监控metrics如下：
+```
 "mongodb.mem.resident.{{PORT}}":                        "GAUGE",
 "mongodb.mem.virtual.{{PORT}}":                         "GAUGE",
 "mongodb.mem.mapped.{{PORT}}":                          "GAUGE",
@@ -145,8 +147,10 @@ RedisCmdStatInfo如下(redis-cli> info Commandstats 命令所有结果)：
 "mongodb.globalLock.activeClients.writers.{{PORT}}":    "GAUGE",
 "mongodb.backgroundFlushing.last_ms.{{PORT}}":          "GAUGE",
 "mongodb.extra_info.page_faults.{{PORT}}":              "COUNTER",
-
+```
 副本集的状态监控metrics如下(非副本集不会产生下列metric)：
+```
 "mongodb.replSet.ok.{{PORT}}":                          "COUNTER",
 "mongodb.replSet.lag.{{PORT}}":                         "GAUGE",
-"mongodb.replSet.timeDiffHours.{{PORT}}":               "GAUGE",
+"mongodb.replSet.timeDiffHours.{{PORT}}":               "GAUGE"
+```
