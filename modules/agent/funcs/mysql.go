@@ -224,9 +224,9 @@ func MySQLSlaveInfo(db *sql.DB, port string)(L []*model.MetricValue){
 	}
 	if v,ok := status["Seconds_Behind_Master"];ok {
 		if v.Valid {
-			L = append(L, CounterValue("mysql.Seconds_Behind_Master."+port,v.String))
+			L = append(L, GaugeValue("mysql.Seconds_Behind_Master."+port,v.String))
 		} else {
-			L = append(L, CounterValue("mysql.Seconds_Behind_Master."+port,"-1.00"))
+			L = append(L, GaugeValue("mysql.Seconds_Behind_Master."+port,"-1.00"))
 		}
 		//log.Println("Seconds_Behind_Master =>",v.String)
 	}
