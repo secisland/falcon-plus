@@ -21,6 +21,7 @@ import (
 	"log"
 	"net"
 	"os"
+	"path/filepath"
 	"strings"
 	"sync"
 	"time"
@@ -30,10 +31,11 @@ var Root string
 
 func InitRootDir() {
 	var err error
-	Root, err = os.Getwd()
+	dir, err := filepath.Abs(filepath.Dir(os.Args[0]))
 	if err != nil {
 		log.Fatalln("getwd fail:", err)
 	}
+        Root = filepath.Dir(dir)
 }
 
 var LocalIp string
