@@ -96,7 +96,9 @@ func ModuleMetrics() (L []*model.MetricValue) {
                         L = append(L, MySQLStatInfo(module.Host, module.Port, module.User, module.Passwd, module.DbName)...)
                 } else if module.Name == "mongodb" {
                         L = append(L, MongoStatInfo(module.Host, module.Port, module.User, module.Passwd, module.DbName)...)
-		}
+                } else if module.Name == "nginx" {
+                        L = append(L, NginxStatInfo(module.Host, module.Port)...)
+                }
         }
 	log.Printf("=> <Total=%d> ModulesMetrics\n", len(L))
 
