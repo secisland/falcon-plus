@@ -154,3 +154,29 @@ RedisCmdStatInfo如下(redis-cli> info Commandstats 命令所有结果)：
 "mongodb.replSet.lag.{{PORT}}":                         "GAUGE",
 "mongodb.replSet.timeDiffHours.{{PORT}}":               "GAUGE"
 ```
+### Nginx监控metrics如下：
+```
+"nginx.server.activeConnections":               "GAUGE",
+"nginx.server.reading":                         "GAUGE",
+"nginx.server.writing":                         "GAUGE",
+"nginx.server.waiting":                         "GAUGE",
+"nginx.request.total.{{DOMAIN}}":               "GAUGE",
+"nginx.request.flow.{{DOMAIN}}":                "GAUGE",
+"nginx.request.200.{{DOMAIN}}":                 "GAUGE",
+"nginx.request.gt200.{{DOMAIN}}":               "GAUGE",
+"nginx.request.ge300.{{DOMAIN}}":               "GAUGE",
+"nginx.request.ge400.{{DOMAIN}}":               "GAUGE",
+"nginx.request.ge500.{{DOMAIN}}":               "GAUGE",
+"nginx.request.reqTime.p995.{{DOMAIN}}":        "GAUGE",
+"nginx.request.reqTime.p99.{{DOMAIN}}":         "GAUGE",
+"nginx.request.reqTime.p98.{{DOMAIN}}":         "GAUGE",
+"nginx.request.reqTime.p95.{{DOMAIN}}":         "GAUGE",
+"nginx.request.reqTime.p90.{{DOMAIN}}":         "GAUGE",
+"nginx.request.reqTime.p80.{{DOMAIN}}":         "GAUGE",
+"nginx.request.upsTime.p995.{{DOMAIN}}":        "GAUGE",
+"nginx.request.upsTime.p99.{{DOMAIN}}":         "GAUGE",
+"nginx.request.upsTime.p98.{{DOMAIN}}":         "GAUGE",
+"nginx.request.upsTime.p95.{{DOMAIN}}":         "GAUGE",
+"nginx.request.upsTime.p90.{{DOMAIN}}":         "GAUGE",
+"nginx.request.upsTime.p80.{{DOMAIN}}":         "GAUGE"
+```
