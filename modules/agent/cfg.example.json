@@ -32,8 +32,12 @@
             "host":"127.0.0.1",
             "port":"27017",
             "user":"USERNAME",
-            "passwd":"YOUR PASSWORD"
+            "passwd":"YOUR PASSWORD",
             "dbName":"admin"
+        },{
+            "name":"nginx",
+            "host":"localhost",
+            "port":"80"
         }
     ],
     "heartbeat": {
